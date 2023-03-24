@@ -37,7 +37,7 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
        
       html: `<h5>Hola ${name} ${lastName}! </h5>
              <p>Tu turnos para el día ${appointmentDay} a las ${appointmentHour} ya está confirmado<p/>
-             <p>En caso de no poder asistir, por favor, cancela el turno desde el siguiente link <a href="http://localhost:3000/appointment/${id_turnos}/${appointmentServiceId}/cancel">Cancelar turno</a> <p/>
+             <p>En caso de no poder asistir, por favor, cancela el turno desde el siguiente link <a href="https://amazing-admin.netlify.app/appointment/${id_turnos}/${appointmentServiceId}/cancel">Cancelar turno</a> <p/>
              `, // html body
         
     });

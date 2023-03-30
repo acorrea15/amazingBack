@@ -130,9 +130,9 @@ router.delete('/:id', async(req, res)=> {
   const {user_id} = req.body;
 
   try {
-    const user = await User.findById(user_id);
+    /* const user = await User.findById(user_id); */
 
-    if(!user.isAdmin) return res.status(401).json("NO TIENE PERMISO DE ADMIN! NO PUEDE BORRAR TURNOS!");
+    /* if(!user.isAdmin) return res.status(401).json("NO TIENE PERMISO DE ADMIN! NO PUEDE BORRAR TURNOS!"); */
 
     /* await Appointment.findByIdAndDelete(id); */
     await Appointment.deleteMany( { id_turnos: id } );

@@ -67,7 +67,7 @@ router.get('/', async(req, res)=> {
     console.log(currentDate, "currentDate 1" )
 
 
-    const sort = {'appointmentDayDate': -1, 'appointmentHour': -1}
+    const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find( { appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
     res.status(200).json(appointments);
   } catch (e) {
@@ -96,7 +96,7 @@ router.post('/', async(req, res)=> {
     const today =  new Date();
     const currentDate = today.toISOString().split('T')[0]
     
-    const sort = {'appointmentDayDate': -1, 'appointmentHour': -1}
+    const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
     
     enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
@@ -115,7 +115,7 @@ router.patch('/:id', async(req, res)=> {
   try {
     const {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId} = req.body;
     const appointment = await Appointment.findByIdAndUpdate(id, {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId});
-    const sort = {'appointmentDayDate': -1, 'appointmentHour': -1}
+    const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort);
     res.status(200).json(appointments);
   } catch (e) {
@@ -136,7 +136,7 @@ router.delete('/:id', async(req, res)=> {
 
     /* await Appointment.findByIdAndDelete(id); */
     await Appointment.deleteMany( { id_turnos: id } );
-    const sort = {'appointmentDayDate': -1, 'appointmentHour': -1}
+    const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort);
     res.status(200).json(appointments);
   } catch (e) {

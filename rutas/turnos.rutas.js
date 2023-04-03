@@ -20,8 +20,8 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "acorreacen2@gmail.com", // generated ethereal user
-      pass: "gurqampfqvzvzwmi", // generated ethereal password
+      user: process.env.MAIL_USERNAME /* "acorreacen2@gmail.com" */, // generated ethereal user
+      pass: process.env.MAIL_PASSWORD /* "gurqampfqvzvzwmi" */,      // generated ethereal password
     },
     });
 

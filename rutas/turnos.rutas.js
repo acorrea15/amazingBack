@@ -43,7 +43,7 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
              <p>Atención a los siguientes ítems: <br />
              -> Contacto: 3812078796 <br />
              -> Dirección: Lobo de la Vega 202, Galeria Handicap L41 (Local frente al estacionamiento) <br />
-             -> En caso de no poder asistir y no cancelar, se deberá abonar el turno en su totalidad. <br />
+             -> En caso de no poder asistir y no cancelar con al menos dos horas de anticipación, se deberá abonar el turno en su totalidad. <br />
              -> Rogamos puntualidad. El tiempo de tolerancia son 5' <p/>
              <p><p/>
              <p>¡Gracias! Te esperamos en Amazing<p/>

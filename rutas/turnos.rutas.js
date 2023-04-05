@@ -31,20 +31,20 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: "Turno Amazing <turnosamazing@amazing.com>", // sender address
+      from: "Amazing Look <amazinglooktuc@gmail.com>", // sender address
       to: email, // list of receivers
       subject: `TURNO CONFIRMADO!`, // Subject line
        
       html: `<h5>Hola, ${name}! </h5>
-             <p>Tu turno para el día ${appointmentDay} de ${appointmentServiceId} con Lulú/Martu a las ${appointmentHour} ya está confirmado.<p/>
+             <p>Tu turno para el día ${appointmentDay} de ${appointmentServiceId} con Lulú/Martu a las ${appointmentHour} hs ya está confirmado.<p/>
              <p> <p/>
              <p>En caso de no poder asistir, por favor cancela el turno tocando <a href="https://amazing-admin.netlify.app/appointment/${id_turnos}/${appointmentServiceId}/cancel">aquí</a> <p/>
              <p> <p/>
-             <p>Atención a los siguientes ítems:<p/>
-             <p>-> Contacto: 3812078796<p/>
-             <p>-> Dirección: Lobo de la Vega 202, Galeria Handicap L41 (Local frente al estacionamiento)<p/>
-             <p>-> En caso de no poder asistir y no cancelar, se deberá abonar el turno en su totalidad.<p/>
-             <p>-> Rogamos puntualidad. El tiempo de tolerancia son 5'<p/>
+             <p>Atención a los siguientes ítems: <br />
+               Contacto: 3812078796 <br />
+               Dirección: Lobo de la Vega 202, Galeria Handicap L41 (Local frente al estacionamiento) <br />
+               En caso de no poder asistir y no cancelar, se deberá abonar el turno en su totalidad. <br />
+               Rogamos puntualidad. El tiempo de tolerancia son 5'<p/>
              <p><p/>
              <p>¡Gracias! Te esperamos en Amazing<p/>
              

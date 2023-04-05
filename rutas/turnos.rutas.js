@@ -30,7 +30,7 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     })
     
     // send mail with defined transport object
-    const info = await transporter.sendMail({
+    const info = await transporter.sendMail({ 
       from: "Amazing Look <amazinglooktuc@gmail.com>", // sender address
       to: email, // list of receivers
       subject: `TURNO CONFIRMADO!`, // Subject line

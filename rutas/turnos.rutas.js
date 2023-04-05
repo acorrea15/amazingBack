@@ -40,14 +40,14 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
              <p> <p/>
              <p>En caso de no poder asistir, por favor cancela el turno <a href="https://amazing-admin.netlify.app/appointment/${id_turnos}/${appointmentServiceId}/cancel">tocando aquí</a> <p/>
              <p> <p/>
-             <p>Atención a los siguientes ítems: <br />
+             <p>Atención a los siguientes ítems: <br /> 
              -> Contacto: 3812078796 <br />
              -> Dirección: Lobo de la Vega 202, Galeria Handicap L41 (Local frente al estacionamiento) <br />
              -> En caso de no poder asistir y no cancelar con al menos dos horas de anticipación, se deberá abonar el turno en su totalidad. <br />
              -> Rogamos puntualidad. El tiempo de tolerancia son 5' <p/>
              <p><p/>
              <p>¡Gracias! Te esperamos en Amazing<p/>
-             
+              
              `, // html body
         
     });

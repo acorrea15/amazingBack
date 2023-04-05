@@ -36,7 +36,7 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
       subject: `TURNO CONFIRMADO!`, // Subject line
        
       html: `<h5>Hola, ${name}! </h5>
-             <p>Tu turno para el día ${appointmentDay} de ${appointmentServiceId} con Lulú/Martu a las ${appointmentHour} hs ya está confirmado.<p/>
+             <p>Tu turno para el día ${appointmentDay} de ${appointmentServiceId}${appointmentServiceId !== 'Alisado de cejas' ? ' con Lulú/Martu ' : ' ' }a las ${appointmentHour} hs ya está confirmado.<p/>
              <p> <p/>
              <p>En caso de no poder asistir, por favor cancela el turno tocando <a href="https://amazing-admin.netlify.app/appointment/${id_turnos}/${appointmentServiceId}/cancel">aquí</a> <p/>
              <p> <p/>

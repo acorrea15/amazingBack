@@ -65,18 +65,8 @@ function formatStringToDate(text) {
 //get Appointment;
 router.get('/', async(req, res)=> {
   try {
-
-    // crea un nuevo objeto `Date`
     const today =  new Date();
-    console.log(today, "todayyyyyyyyyyyyyyy1")
-    /* console.log(today.getHours()+":"+today.getMinutes(), "hora y minuto actual") */
-
     const currentDate = today.toISOString().split('T')[0]
-    
- 
-    console.log(currentDate, "currentDate 1" )
-
-
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find( { appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
     res.status(200).json(appointments);
@@ -140,11 +130,9 @@ router.delete('/:id', async(req, res)=> {
   const {user_id} = req.body;
 
   try {
-    /* const user = await User.findById(user_id); */
-
-    /* if(!user.isAdmin) return res.status(401).json("NO TIENE PERMISO DE ADMIN! NO PUEDE BORRAR TURNOS!"); */
-
-    /* await Appointment.findByIdAndDelete(id); */
+    const today =  new Date();
+    const currentDate = today.toISOString().split('T')[0]     
+        
     await Appointment.deleteMany( { id_turnos: id } );
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
     const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort);

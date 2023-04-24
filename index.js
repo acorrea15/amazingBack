@@ -10,7 +10,7 @@ const appointmentsscheduleRoutes = require('./rutas/appointmentsSchedule.rutas')
 const professionalsRoutes = require('./rutas/professional.rutas')
 
 // Middlewares
-app.use(cors())
+app.use(cors()) //Todo el mundo
 app.use(express.json())
 
 app.use('/users', userRoutes);

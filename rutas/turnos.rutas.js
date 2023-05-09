@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 console.log("Eliminar cuando se configure Turnos Rutas")
 const nodemailer = require("nodemailer");
 
@@ -5,11 +7,93 @@ const router = require('express').Router();
 const Appointment = require('../models/turnosSchema');
 const User = require('../models/userSchema');
 /* const transporter = require('../config/mailer'); */
+const moment = require("moment");
+ 
+const CLIENT_ID = process.env.CLIENT_ID 
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const REDIRECT_URI = process.env.REDIRECT_URI
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
+const { google } = require('googleapis');
+const { OAuth2Client } = require('google-auth-library');
+
+const oAuth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 
 // crea un nuevo objeto `Date`
 const today =  new Date();
 const currentDate = today.toISOString().split('T')[0]
+
+async function getAccessTokenWithRefreshToken(refreshToken) {
+  const tokens = await oAuth2Client.refreshToken(refreshToken);
+  return tokens.tokens.access_token; 
+}
+
+async function createCalendarEvent(appointmentDay, appointmentHourLs, appointmentServiceLs, email) {
+  let duracion_evento 
+  if (appointmentServiceLs==="Diseño y perfilado de cejas"){
+    duracion_evento =  20 * 60000
+  }
+  if (appointmentServiceLs==="Diseño y perfilado + alisado de cejas"){
+    duracion_evento =  60 * 60000
+  }
+  if (appointmentServiceLs==="Alisado de cejas"){
+    duracion_evento =  40 * 60000
+  }
+
+  
+  const accessToken = await getAccessTokenWithRefreshToken(REFRESH_TOKEN);
+  console.log(accessToken, '<<<----Access token ya!!!!!!!!'); 
+
+  const fechaString = appointmentDay + " " + appointmentHourLs; // fecha en formato DD/MM/YYYY hh:mm
+  const appointmentDayStart = moment(
+    fechaString,
+    "DD/MM/YYYY HH:mm"
+  ).toDate();
+  const appointmentDayEnd = new Date(
+    appointmentDayStart.getTime() + duracion_evento // 20 * 60000
+  );
+
+  const event = {
+    summary: "Turno para " + appointmentServiceLs,
+    description:
+      "Turno en Amazing el servicio de " +
+      appointmentServiceLs +
+      " el día " +
+      appointmentDayStart.toLocaleDateString(),
+    start: {
+      dateTime: appointmentDayStart.toISOString(), // Date.toISOString() ->
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, //
+    },
+    end: {
+      dateTime: appointmentDayEnd.toISOString(), // Date.toISOString() ->
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, //
+    },
+    attendees: [
+      { email: 'acorreacen2@gmail.com' }, /*Aquí debe ir el mail amazinglooktuc@gmail.com !!!!!!!!!!!!!!!!!!!!*/
+      { email: email } /*email de quien pide turno*/
+    ] 
+  };
+
+    
+  await fetch(
+    "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken, //session.provider_token, // Access token for google
+      },
+      body: JSON.stringify(event),
+    }
+  )
+    .then((data) => {
+      console.log(data, "<<<<<----data.json() OK")
+      return data.json();
+    })
+    .then((data) => {
+      //console.log(data, "<<<<<----data.json() ERROR")
+    });
+}
+
 
 async function enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos) {
   console.log(email,sendEmail, "(email,sendEmail, Antes de envío mail")
@@ -20,8 +104,8 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.MAIL_USERNAME /* "acorreacen2@gmail.com" */, // generated ethereal user
-      pass: process.env.MAIL_PASSWORD /* "gurqampfqvzvzwmi" */,      // generated ethereal password
+      user: process.env.MAIL_USERNAME, // generated ethereal user
+      pass: process.env.MAIL_PASSWORD,      // generated ethereal password
     },
     });
 
@@ -53,6 +137,9 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     });
 
     console.log(email, "Después de envío mail")
+
+    /*Creo el evento en calendar*/
+    createCalendarEvent(appointmentDay, appointmentHour, appointmentServiceId, email)
   }    
 }
 

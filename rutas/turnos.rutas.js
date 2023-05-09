@@ -7,13 +7,16 @@ const router = require('express').Router();
 const Appointment = require('../models/turnosSchema');
 const User = require('../models/userSchema');
 /* const transporter = require('../config/mailer'); */
-const moment = require("moment");
- 
+//const moment = require("moment");
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/Argentina/Buenos_Aires');
+
 const CLIENT_ID = process.env.CLIENT_ID 
 const CLIENT_SECRET = process.env.CLIENT_SECRET
 const REDIRECT_URI = process.env.REDIRECT_URI
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
+const { google } = require('googleapis');
 const { OAuth2Client } = require('google-auth-library');
 
 const oAuth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);

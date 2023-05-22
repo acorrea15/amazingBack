@@ -71,7 +71,7 @@ async function createCalendarEvent(appointmentDay, appointmentHourLs, appointmen
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, //
     },
     attendees: [
-      { email: 'acorreacen2@gmail.com' }, /*Aquí debe ir el mail amazinglooktuc@gmail.com !!!!!!!!!!!!!!!!!!!!*/
+      /*{ email: 'acorreacen2@gmail.com' },*/ /*Aquí debe ir el mail amazinglooktuc@gmail.com !!!!!!!!!!!!!!!!!!!!*/
       { email: email } /*email de quien pide turno*/
     ] 
   };

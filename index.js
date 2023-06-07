@@ -7,6 +7,7 @@ const   connectDb   = require('./db/mongodb.js')
 const userRoutes = require('./rutas/user.rutas')
 const turnosRoutes = require('./rutas/turnos.rutas')
 const appointmentsscheduleRoutes = require('./rutas/appointmentsSchedule.rutas')
+const appointmentsalisadoscheduleRoutes = require('./rutas/appointmentsAlisadoSchedule.rutas') 
 const professionalsRoutes = require('./rutas/professional.rutas')
 
 // Middlewares
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/users', userRoutes);
 app.use('/appointments', turnosRoutes);
 app.use('/appointmentsschedule', appointmentsscheduleRoutes);
+app.use('/appointmentsalisadoschedule', appointmentsalisadoscheduleRoutes);
 app.use('/professionals', professionalsRoutes);
 
 

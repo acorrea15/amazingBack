@@ -174,7 +174,7 @@ router.post('/', async(req, res)=> {
 
     const appointmentFound = await Appointment.find({ appointmentServiceId: appointmentServiceId, appointmentDay: appointmentDay, appointmentHour: appointmentHour } )
     
-    console.log(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, "Consulto Disponibilidad")
+    console.log(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, dni, id_turnos, "Consulto Disponibilidad")
     
 
     if(appointmentFound.length>0){

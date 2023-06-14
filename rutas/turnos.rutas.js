@@ -203,7 +203,7 @@ router.post('/', async(req, res)=> {
       const appointmentFoundService1 = await Appointment.find({ appointmentServiceId: "Diseño y perfilado de cejas", appointmentDay: appointmentDay, appointmentHour: appointmentHourService1 } )
       
       if(appointmentFoundService1.length>0){
-        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
+        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
       }
 
     }

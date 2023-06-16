@@ -178,7 +178,7 @@ router.post('/', async(req, res)=> {
     }
 
     
-    if (appointmentServiceId==="Diseño y perfilado + alisado de cejas"){
+    if ( appointmentServiceId==="Diseño y perfilado + alisado de cejas" && sendEmail === true ){
       //Es un turno para el servicio 2 ("Diseño y perfilado + alisado de cejas")
       
       //Busco si existe un turno para service3 ("Alisado de cejas") para el mismo horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
@@ -188,7 +188,6 @@ router.post('/', async(req, res)=> {
       if(appointmentFoundService3.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
       }
-
 
       //Busco si existe un turno para service1 ("Diseño y perfilado de cejas") para 40 minutos después del horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
      

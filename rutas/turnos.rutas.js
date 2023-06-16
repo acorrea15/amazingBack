@@ -182,7 +182,8 @@ router.post('/', async(req, res)=> {
       //Es un turno para el servicio 2 ("Diseño y perfilado + alisado de cejas")
       
       //Busco si existe un turno para service3 ("Alisado de cejas") para el mismo horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
-      const appointmentFoundService3 = await Appointment.find({ appointmentServiceId: "Alisado de cejas", appointmentDay: appointmentDay, appointmentHour: appointmentHour } )
+      const appointmentServiceIdAlisado="Alisado de cejas"
+      const appointmentFoundService3 = await Appointment.find({ appointmentServiceId: appointmentServiceIdAlisado, appointmentDay: appointmentDay, appointmentHour: appointmentHour } )
  
       if(appointmentFoundService3.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
@@ -200,7 +201,8 @@ router.post('/', async(req, res)=> {
       horaActual.setMinutes(horaActual.getMinutes() + minutos);
       const appointmentHourService1 = horaActual.toTimeString().slice(0, 5);     
      
-      const appointmentFoundService1 = await Appointment.find({ appointmentServiceId: "Diseño y perfilado de cejas", appointmentDay: appointmentDay, appointmentHour: appointmentHourService1 } )
+      const appointmentServiceIdPerfilado = "Diseño y perfilado de cejas"
+      const appointmentFoundService1 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService1 } )
       
       if(appointmentFoundService1.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 

@@ -158,7 +158,9 @@ router.get('/', async(req, res)=> {
     const today =  new Date();
     const currentDate = today.toISOString().split('T')[0]
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-    const appointments = await Appointment.find( { appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
+    const appointments = await Appointment.find( { appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort); 
+
+    
     res.status(200).json(appointments);
   } catch (e) {
     res.status(400).send(e.message);

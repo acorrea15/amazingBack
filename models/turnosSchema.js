@@ -65,6 +65,11 @@ const AppointmentSchema = mongoose.Schema({
         type: String,
         required: [true, 'is required']
       },  
+
+      sendEmail: {
+        type: Boolean,
+        default: false
+      },
       
       
   }, {minimize: false});

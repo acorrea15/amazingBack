@@ -209,6 +209,8 @@ router.post('/', async(req, res)=> {
       
     }
 
+
+
     if (appointmentServiceId==="Diseño y perfilado + alisado de cejas"){
       //Es un turno para el servicio 2 ("Diseño y perfilado + alisado de cejas")
       
@@ -238,6 +240,8 @@ router.post('/', async(req, res)=> {
       }
     }
 
+
+
     if (appointmentServiceId==="Diseño y perfilado de cejas"){
       //Es un turno para el servicio 1 ("Diseño y perfilado de cejas")
      
@@ -257,8 +261,33 @@ router.post('/', async(req, res)=> {
       if(appointmentFoundService2.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
       }
+      else{
+        const appointmentDayDate = formatStringToDate(appointmentDay);
+    
+        let  appointmentServiceId="Diseño y perfilado de cejas"
+        let appointmentHour = hora
+
+        const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
+        
+        appointmentServiceId="Diseño y perfilado + alisado de cejas"
+        appointmentHour = appointmentHourService2
+        const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
+        
+        const today =  new Date();
+        const currentDate = today.toISOString().split('T')[0]
+        
+        const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
+        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
+        
+        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
+        
+        res.status(201).json(appointments); 
+      }
+
     }
     
+
+
     
   /*   const appointmentDayDate = formatStringToDate(appointmentDay);
     

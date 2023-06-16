@@ -200,8 +200,8 @@ router.post('/', async(req, res)=> {
         
         enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
-        const appointmentServiceIdPerfilMasAlisado="Diseño y perfilado + alisado de cejas"
-        const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceIdPerfilMasAlisado, dni, id_turnos});
+        appointmentServiceId="Diseño y perfilado + alisado de cejas"
+        const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
         
         res.status(201).json(appointments);
       }

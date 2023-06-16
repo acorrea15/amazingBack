@@ -179,7 +179,7 @@ router.post('/', async(req, res)=> {
     
     const appointmentDayDate = formatStringToDate(appointmentDay);
     console.log(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, "dentro de create appointment")
-    const appointment = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
+    const appointment = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
     
     const today =  new Date();
     const currentDate = today.toISOString().split('T')[0]

@@ -190,8 +190,9 @@ router.post('/', async(req, res)=> {
       else{
         const appointmentDayDate = formatStringToDate(appointmentDay);
     
+        let  appointmentServiceId="Alisao"
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
-        let  appointmentServiceId="Diseño y perfilado + alisado de cejas"
+        appointmentServiceId="Diseño y perfilado + alisado de cejas"
         const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
         appointmentServiceId="xxx xxx"
         const appointmentService1 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});

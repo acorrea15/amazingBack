@@ -202,7 +202,7 @@ router.post('/', async(req, res)=> {
         const currentDate = today.toISOString().split('T')[0]
         
         const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
+        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort); 
         
         enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
@@ -239,6 +239,32 @@ router.post('/', async(req, res)=> {
       
       if(appointmentFoundService1.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
+      }
+      else{
+        const appointmentDayDate = formatStringToDate(appointmentDay);
+    
+        let  appointmentServiceId="Diseño y perfilado + alisado de cejas"
+        let appointmentHour = hora
+
+        const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
+       
+        
+        appointmentServiceId="Alisado de cejas"
+        const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
+        
+        appointmentServiceId="Diseño y perfilado de cejas"
+        appointmentHour = appointmentHourService1
+        const appointmentService1 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
+        
+        const today =  new Date();
+        const currentDate = today.toISOString().split('T')[0]
+        
+        const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
+        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort); 
+        
+        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
+        
+        res.status(201).json(appointments); 
       }
     }
 
@@ -279,7 +305,7 @@ router.post('/', async(req, res)=> {
         const currentDate = today.toISOString().split('T')[0]
         
         const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
+        const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort); 
         
         enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
@@ -299,7 +325,7 @@ router.post('/', async(req, res)=> {
     const currentDate = today.toISOString().split('T')[0]
     
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
+    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort); 
     
     enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
     
@@ -318,7 +344,7 @@ router.patch('/:id', async(req, res)=> {
     const {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId} = req.body;
     const appointment = await Appointment.findByIdAndUpdate(id, {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId});
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort);
+    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort);
     res.status(200).json(appointments);
   } catch (e) {
     res.status(400).send(e.message);
@@ -337,7 +363,7 @@ router.delete('/:id', async(req, res)=> {
         
     await Appointment.deleteMany( { id_turnos: id } );
     const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
-    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort);
+    const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate }, sendEmail: true } ).sort(sort);
     res.status(200).json(appointments);
   } catch (e) {
     res.status(400).send(e.message);

@@ -190,13 +190,12 @@ router.post('/', async(req, res)=> {
       else{
         const appointmentDayDate = formatStringToDate(appointmentDay);
     
-        let  appointmentServiceId="Alisao"
+        let  appointmentServiceId="Alisado de cejas"
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
+        
         appointmentServiceId="Diseño y perfilado + alisado de cejas"
         const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
-        appointmentServiceId="xxx xxx"
-        const appointmentService1 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
-
+        
         const today =  new Date();
         const currentDate = today.toISOString().split('T')[0]
         
@@ -204,9 +203,6 @@ router.post('/', async(req, res)=> {
         const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
         
         enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
-        
-        
-        
         
         res.status(201).json(appointments); 
       }

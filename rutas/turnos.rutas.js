@@ -203,7 +203,7 @@ router.post('/', async(req, res)=> {
         
         //const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
         
-        res.status(201).json(appointments);
+        res.status(201).json(appointments); 
       }
       
     }

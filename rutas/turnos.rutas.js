@@ -171,11 +171,42 @@ router.post('/', async(req, res)=> {
   try {
     const {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos} = req.body;
 
-    const appointmentFound = await Appointment.find({ appointmentServiceId: appointmentServiceId, appointmentDay: appointmentDay, appointmentHour: appointmentHour } )
+    const appointmentFound = await Appointment.find({ appointmentServiceId: appointmentServiceId, appointmentDay: appointmentDay, appointmentHour: appointmentHour, sendEmail: true } )
     
     if(appointmentFound.length>0){
       return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
     }
+
+
+    if (appointmentServiceId==="Diseño y perfilado + alisado de cejas"){
+      //Es un turno para el servicio 2 ("Diseño y perfilado + alisado de cejas")
+      
+      //Busco si existe un turno para service3 ("Alisado de cejas") para el mismo horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
+      const appointmentServiceIdAlisado="Alisado de cejas"
+      const appointmentFoundService3 = await Appointment.find({ appointmentServiceId: appointmentServiceIdAlisado, appointmentDay: appointmentDay, appointmentHour: appointmentHour, sendEmail: true } )
+ 
+      if(appointmentFoundService3.length>0){
+        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
+      }
+
+      //Busco si existe un turno para service1 ("Diseño y perfilado de cejas") para 40 minutos después del horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
+      const hora = appointmentHour;
+      const minutos = 40; 
+      const [horaStr, minutoStr] = hora.split(':');
+      const horaActual = new Date();
+      horaActual.setHours(horaStr);
+      horaActual.setMinutes(minutoStr);
+      horaActual.setMinutes(horaActual.getMinutes() + minutos);
+      const appointmentHourService1 = horaActual.toTimeString().slice(0, 5);     
+     
+      const appointmentServiceIdPerfilado = "Diseño y perfilado de cejas"
+      const appointmentFoundService1 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService1, sendEmail: true } )
+      
+      if(appointmentFoundService1.length>0){
+        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
+      }
+    }
+    
     
     const appointmentDayDate = formatStringToDate(appointmentDay);
     console.log(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, "dentro de create appointment")

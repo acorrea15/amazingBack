@@ -283,8 +283,8 @@ router.post('/', async(req, res)=> {
       horaActual.setMinutes(horaActual.getMinutes() - minutos);
       const appointmentHourService2 = horaActual.toTimeString().slice(0, 5);     
      
-      const appointmentServiceIdPerfilado = "Diseño y perfilado de cejas"
-      const appointmentFoundService2 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService2, sendEmail: true } )
+      const appointmentServiceIdPerfilMasAlisado="Diseño y perfilado + alisado de cejas"
+      const appointmentFoundService2 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilMasAlisado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService2, sendEmail: true } )
       
       if(appointmentFoundService2.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario!"); 

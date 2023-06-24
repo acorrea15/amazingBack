@@ -287,7 +287,7 @@ router.post('/', async(req, res)=> {
       const appointmentFoundService2 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService2, sendEmail: true } )
       
       if(appointmentFoundService2.length>0){
-        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
+        return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario!"); 
       }
       else{
         const appointmentDayDate = formatStringToDate(appointmentDay);

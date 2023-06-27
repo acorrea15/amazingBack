@@ -195,6 +195,10 @@ router.post('/', async(req, res)=> {
         let  appointmentServiceId="Alisado de cejas"
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
         
+        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
+
+
+        
         appointmentServiceId="Diseño y perfilado + alisado de cejas"
         const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
         
@@ -203,8 +207,6 @@ router.post('/', async(req, res)=> {
         
         const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
         const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
-        
-        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
         res.status(201).json(appointments); 
       }
@@ -248,7 +250,10 @@ router.post('/', async(req, res)=> {
 
         const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
        
+        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
+
+
         appointmentServiceId="Alisado de cejas"
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
         
@@ -261,8 +266,6 @@ router.post('/', async(req, res)=> {
         
         const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
         const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
-        
-        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
         res.status(201).json(appointments); 
       }
@@ -297,6 +300,10 @@ router.post('/', async(req, res)=> {
 
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos, sendEmail});
         
+        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
+
+
+
         appointmentServiceId="Diseño y perfilado + alisado de cejas"
         appointmentHour = appointmentHourService2
         const appointmentService2 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
@@ -306,8 +313,6 @@ router.post('/', async(req, res)=> {
         
         const sort = {'appointmentDayDate': 1, 'appointmentHour': 1}
         const appointments = await Appointment.find({ appointmentDayDate: { $gte: currentDate } } ).sort(sort); 
-        
-        enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
         res.status(201).json(appointments); 
       }

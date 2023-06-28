@@ -221,12 +221,13 @@ router.post('/', async(req, res)=> {
       //Es un turno para el servicio 2 ("Diseño y perfilado + alisado de cejas")
       
       //Busco si existe un turno para service3 ("Alisado de cejas") para el mismo horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
-      const appointmentServiceIdAlisado="Alisado de cejas"
+      /*const appointmentServiceIdAlisado="Alisado de cejas"
       const appointmentFoundService3 = await Appointment.find({ appointmentServiceId: appointmentServiceIdAlisado, appointmentDay: appointmentDay, appointmentHour: appointmentHour, sendEmail: true } )
  
       if(appointmentFoundService3.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
       }
+      */
 
       //Busco si existe un turno para service1 ("Diseño y perfilado de cejas") para 40 minutos después del horario seleccionado para el service 2 ("Diseño y perfilado + alisado de cejas")
       const hora = appointmentHour;
@@ -255,10 +256,11 @@ router.post('/', async(req, res)=> {
         enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos);
         
 
-
+        /* Se pidió que al solicitar un turno de Alisado+Perfilado, no se ocupe un turno de solo Alisado
         appointmentServiceId="Alisado de cejas"
         const appointmentService3 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});
-        
+        */
+
         appointmentServiceId="Diseño y perfilado de cejas"
         appointmentHour = appointmentHourService1
         const appointmentService1 = await Appointment.create({name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentDayDate, appointmentServiceId, dni, id_turnos});

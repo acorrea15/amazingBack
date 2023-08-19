@@ -7,7 +7,6 @@ const router = require('express').Router();
 const Appointment = require('../models/turnosSchema');
 const User = require('../models/userSchema');
 /* const transporter = require('../config/mailer'); */
-//const moment = require("moment");
 const moment = require('moment-timezone');
 moment.tz.setDefault('America/Argentina/Buenos_Aires');
 

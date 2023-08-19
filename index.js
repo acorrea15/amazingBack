@@ -9,6 +9,8 @@ const turnosRoutes = require('./rutas/turnos.rutas')
 const appointmentsscheduleRoutes = require('./rutas/appointmentsSchedule.rutas')
 const appointmentsalisadoscheduleRoutes = require('./rutas/appointmentsAlisadoSchedule.rutas') 
 const professionalsRoutes = require('./rutas/professional.rutas')
+const precioServiciosruta = require('./rutas/precioServicios.rutas')
+
 
 // Middlewares
 app.use(cors()) //Todo el mundo
@@ -19,6 +21,8 @@ app.use('/appointments', turnosRoutes);
 app.use('/appointmentsschedule', appointmentsscheduleRoutes);
 app.use('/appointmentsalisadoschedule', appointmentsalisadoscheduleRoutes);
 app.use('/professionals', professionalsRoutes);
+app.use('/updateprice', precioServiciosruta)
+
 
 
 const initApp = async (appConfig, dbConfig) => {

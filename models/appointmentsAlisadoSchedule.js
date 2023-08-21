@@ -1,5 +1,3 @@
-console.log("Eliminar cuando se configure Turnos Cronograma Alisado");
-
 const mongoose = require('mongoose'); 
 const AppointmentAlisadoScheduleSchema = mongoose.Schema({  
  

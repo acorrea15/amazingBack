@@ -1,5 +1,3 @@
-console.log("Eliminar cuando se configure Turnos Cronograma");
-
 const mongoose = require('mongoose'); 
 const AppointmentScheduleSchema = mongoose.Schema({  
  

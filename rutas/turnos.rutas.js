@@ -1,12 +1,8 @@
 const fetch = require("node-fetch");
-
-console.log("Eliminar cuando se configure Turnos Rutas")
 const nodemailer = require("nodemailer");
-
 const router = require('express').Router();
 const Appointment = require('../models/turnosSchema');
 const User = require('../models/userSchema');
-/* const transporter = require('../config/mailer'); */
 const moment = require('moment-timezone');
 moment.tz.setDefault('America/Argentina/Buenos_Aires');
 
@@ -43,8 +39,6 @@ async function createCalendarEvent(appointmentDay, appointmentHourLs, appointmen
 
   
   const accessToken = await getAccessTokenWithRefreshToken(REFRESH_TOKEN);
-  console.log(accessToken, '<<<----Access token ya!!!!!!!!'); 
-
   const fechaString = appointmentDay + " " + appointmentHourLs; // fecha en formato DD/MM/YYYY hh:mm
   const appointmentDayStart = moment(
     fechaString,
@@ -87,17 +81,14 @@ async function createCalendarEvent(appointmentDay, appointmentHourLs, appointmen
     }
   )
     .then((data) => {
-      console.log(data, "<<<<<----data.json() OK")
       return data.json();
     })
     .then((data) => {
-      //console.log(data, "<<<<<----data.json() ERROR")
     });
 }
 
 
 async function enviarMail(name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos) {
-  console.log(email,sendEmail, "(email,sendEmail, Antes de envío mail")
   // create reusable transporter object using the default SMTP transport
   if(sendEmail===true){
     let transporter = nodemailer.createTransport({
@@ -111,7 +102,6 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
     });
 
     transporter.verify().then( ()=>{
-      console.log("LISTO PARA MANDAR MAIL")
     })
     
     // send mail with defined transport object
@@ -137,8 +127,6 @@ async function enviarMail(name, lastName, email, phone, professional, appointmen
              `, // html body
         
     });
-
-    console.log(email, "Después de envío mail")
 
     /*Creo el evento en calendar*/
     createCalendarEvent(appointmentDay, appointmentHour, appointmentServiceId, email)

@@ -1,5 +1,3 @@
-console.log("Eliminar cuando se configure Turnos Schema");
-
 const mongoose = require('mongoose');
 const AppointmentSchema = mongoose.Schema({  
     name: {

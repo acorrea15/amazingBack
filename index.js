@@ -10,7 +10,8 @@ const appointmentsscheduleRoutes = require('./rutas/appointmentsSchedule.rutas')
 const appointmentsalisadoscheduleRoutes = require('./rutas/appointmentsAlisadoSchedule.rutas') 
 const professionalsRoutes = require('./rutas/professional.rutas')
 const precioServiciosruta = require('./rutas/precioServicios.rutas')
-
+const profesionalRuta = require('./rutas/profesional.ruta')
+const servicioRuta = require('./rutas/servicio.ruta')
 
 // Middlewares
 app.use(cors()) //Todo el mundo
@@ -22,6 +23,8 @@ app.use('/appointmentsschedule', appointmentsscheduleRoutes);
 app.use('/appointmentsalisadoschedule', appointmentsalisadoscheduleRoutes);
 app.use('/professionals', professionalsRoutes);
 app.use('/updateprice', precioServiciosruta)
+app.use('/precioservicios', precioServiciosruta)
+app.use('/v1', profesionalRuta, servicioRuta, precioServiciosruta)
 
 
 

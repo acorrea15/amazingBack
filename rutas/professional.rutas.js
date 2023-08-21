@@ -1,9 +1,6 @@
-console.log("Eliminar cuando se configure Professional Rutas")
-
 const router = require('express').Router();
 const Professional = require('../models/professionalSchema');
 const User = require('../models/userSchema');
-
 
 //get Professional;
 router.get('/', async(req, res)=> {
@@ -48,14 +45,13 @@ router.patch('/:id', async(req, res)=> {
 router.delete('/:id', async(req, res)=> {
   const {id} = req.params;
   const {user_id} = req.body;
-  console.log(id, user_id, "delete professional!!!!!!")
   try {
     const user = await User.findById(user_id);
     if(!user.isAdmin) return res.status(401).json("NO TIENE PERMISO DE ADMIN!");
     await Professional.findByIdAndDelete(id);
     const professionals = await Professional.find();
     res.status(200).json(professionals);
-  } catch (e) {console.log(e.message)
+  } catch (e) {
     res.status(400).send(e.message);
   }
 })

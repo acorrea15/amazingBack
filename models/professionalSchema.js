@@ -1,5 +1,3 @@
-console.log("Eliminar cuando se configure Professional Schema");
-
 const mongoose = require('mongoose');
 const ProfessionaltSchema = mongoose.Schema({  
      name: {

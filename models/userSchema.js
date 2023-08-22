@@ -1,5 +1,3 @@
-console.log("Eliminar cuando se configure Users Schema");
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 

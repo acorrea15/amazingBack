@@ -1,1 +1,0 @@
-console.log("Eliminar cuando se configure")

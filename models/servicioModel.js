@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const servicioSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
-  // Otros campos relacionados al servicio
-});
+  costo: { type: Number, required: true },
+}, { versionKey: false });
 
 const Servicio = mongoose.model("Servicio", servicioSchema);
 

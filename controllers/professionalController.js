@@ -42,8 +42,26 @@ const deleteProfesional = async (req, res) => {
   }
 };
 
+// Editar profesional
+
+const updateProfesional = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, lastName, address, email, phone, specialty } = req.body;
+    const profesional = await ProfesionalController.findByIdAndUpdate(
+      id,
+      { nombre, lastName, address, email, phone, specialty },
+      { new: true }
+    );
+    res.status(200).json(profesional);
+  } catch (error) {
+    res.status(400).json("Error al actualizar el profesional");
+  }
+};
+
 module.exports = {
   getProfesionales,
   createProfesional,
   deleteProfesional,
+  updateProfesional,
 };

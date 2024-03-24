@@ -5,6 +5,6 @@ const servicioController = require('../controllers/servicioController');
 //get Servicios;
 
 router.get('/servicios', servicioController.getServicios);
-router.post('/servicio', servicioController.createServicio);
+router.post('/newServicio', servicioController.createServicio);
 
 module.exports  = router;

@@ -7,5 +7,6 @@ const professionalController = require('../controllers/professionalController');
 router.get('/profesional', professionalController.getProfesionales);
 router.post('/Newprofesional', professionalController.createProfesional);
 router.delete('/deleteProfesional/:id', professionalController.deleteProfesional);
+router.put('/updateProfesional/:id', professionalController.updateProfesional);
 
 module.exports  = router;

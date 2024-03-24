@@ -55,20 +55,25 @@ const Servicio = require("../models/servicioModel"); // Importa otros modelos si
 
 const crearPrecioServicio = async (req, res) => {
   try {
-    const { nombre, servicio, costo } = req.body;
-    const profesional = await Profesional.findOne({ nombre });
-    const servicioObj = await Servicio.findOne({ servicio });
-    if (!profesional || !servicioObj) {
-      return res.status(404).json("Profesional o servicio no encontrado");
-    }
+    // const { nombre, servicio, costo } = req.body;
+    // const profesional = await Profesional.findOne({ nombre });
+    // const servicioObj = await Servicio.findOne({ servicio });
+    // if (!profesional || !servicioObj) {
+    //   return res.status(404).json("Profesional o servicio no encontrado");
+    // }
 
+    // const nuevoPrecio = new PrecioServicio({
+    //   profesional: profesional.nombre,
+    //   servicio: servicioObj.nombre,
+    //   costo,
+    // });
+    const { profesional, servicio, costo } = req.body;
     const nuevoPrecio = new PrecioServicio({
-      profesional: profesional.nombre,
-      servicio: servicioObj.nombre,
+      profesional,
+      servicio,
       costo,
     });
-
-    const precioGuardado = await nuevoPrecio.save();
+     const precioGuardado = await nuevoPrecio.save();
     res.status(201).json(precioGuardado);
   } catch (error) {
     res.status(400).json(error.message);
@@ -101,8 +106,21 @@ const obtenerPrecioServicio = async (req, res) => {
   }
 };
 
+const eliminarPrecioServicio = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await PrecioServicio.findByIdAndDelete(id);
+    res.status(200).json("Precio de servicio eliminado");
+  }
+  catch (error) {
+    res.status(400).json("Error al eliminar el precio del servicio");
+  }
+}
+
+
 module.exports = {
   crearPrecioServicio,
   actualizarPrecioServicio,
   obtenerPrecioServicio,
+  eliminarPrecioServicio
 };

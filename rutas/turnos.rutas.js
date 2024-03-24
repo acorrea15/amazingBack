@@ -161,8 +161,12 @@ router.post('/', async(req, res)=> {
     const {name, lastName, email, phone, professional, appointmentDay, appointmentHour, appointmentServiceId, sendEmail, dni, id_turnos} = req.body;
 
     const appointmentFound = await Appointment.find({ appointmentServiceId: appointmentServiceId, appointmentDay: appointmentDay, appointmentHour: appointmentHour } )
+
+    const professionals = appointmentFound.map((appointment) => appointment.professional);
+    const uniqueProfessional = Array.from(new Set(professionals))[0];
+  
     
-    if(appointmentFound.length>0){
+    if(uniqueProfessional === professional){
       return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario.");
     }
 
@@ -228,6 +232,7 @@ router.post('/', async(req, res)=> {
      
       const appointmentServiceIdPerfilado = "Diseño y perfilado de cejas"
       const appointmentFoundService1 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService1, sendEmail: true } )
+      console.log(appointmentFoundService1, "appointmentFoundService1 desde turnos.rutas.js")
       
       if(appointmentFoundService1.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario."); 
@@ -280,6 +285,8 @@ router.post('/', async(req, res)=> {
       const appointmentServiceIdPerfilMasAlisado="Diseño y perfilado + alisado de cejas"
       const appointmentFoundService2 = await Appointment.find({ appointmentServiceId: appointmentServiceIdPerfilMasAlisado , appointmentDay: appointmentDay, appointmentHour: appointmentHourService2, sendEmail: true } )
       
+      console.log(appointmentFoundService2 , "appointmentFoundService2 desde turnos.rutas.js")
+
       if(appointmentFoundService2.length>0){
         return res.status(401).json("El turno ya no está disponible. Por favor, seleccione otro horario!"); 
       }
